@@ -62,6 +62,60 @@ fn main() {
     // Box
     let byte_array = [b'h', b'e', b'l', b'l', b'o'];
     print(Box::new(byte_array));
+
+    // if
+    let number = 1;
+    if 0 < number {
+        println!("0 < number");
+    }  else if number < 0 {
+        println!("number < 0");
+    } else {
+        println!("number == 0");
+    }
+    let number2 = 1;
+    let result = if 0 <= number2 {
+        number2
+    } else {
+        -number2
+    };
+
+    // Loop
+    let mut count = 0;
+    let result2 = loop {
+        println!("count: {}", count);
+        count += 1;
+        if count == 10 {
+            break count;
+        }
+    };
+
+    // While
+    let mut count2 = 0;
+    while count2 < 10 {
+        println!("count: {}", count2);
+        count2 += 1;
+    }
+
+    // For
+    let count3 = 0;
+    for count3 in 0..10 {
+        println!("count: {}", count3);
+    }
+    let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for element in &array {
+        println!("element: {}", element);
+    }
+
+    // Label
+    'main: loop {
+        println!("start main loop");
+        'sub: loop {
+            println!("start sub loop");
+            break 'main;
+        }
+    }
+
+    // Match
 }
 
 fn func(code: i32) -> Result<i32, String> {
