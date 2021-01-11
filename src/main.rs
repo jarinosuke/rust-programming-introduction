@@ -1,4 +1,5 @@
-use std::vec;
+use std::{vec, writeln};
+use std::io::Write;
 
 fn main() {
     println!("Hello, world!");
@@ -116,6 +117,59 @@ fn main() {
     }
 
     // Match
+    let i = 1;
+    match i {
+        1 => println!("1"),
+        2 => println!("2"),
+        3 => println!("3"),
+        _ => println!("misc"),
+    }
+
+    let c = Color::Red;
+    match c {
+        Color::Red => println!("Red"),
+        Color::Blue => println!("Blue"),
+        Color::Green => println!("Green"),
+    }
+
+    let result5: Result<i32, String> = Ok(100);
+    let result_number = match result5 {
+        Ok(number) => number,
+        Err(message) => {
+            println!("Error: {}", message);
+            -1
+        },
+    };
+
+    // Range
+    for number in 1..5 {
+        println!("{}", number);
+    }
+
+    // Iterator
+    let it = Iter{
+        current: 0,
+        max: 10,
+    };
+    for num in it {
+        println!("{}", num);
+    }
+
+    //Impl
+    let p2 = Person {
+        name: String::from("Taro"),
+        age: 20,
+    };
+
+    p2.say_name();
+    p2.say_age();
+    p2.say_name().say_age();
+
+    //Macro
+    let mut w = Vec::new();
+    write!(&mut w, "{}", "ABC");
+    writeln!(&mut w, " is 123");
+    dbg!(w);
 }
 
 fn func(code: i32) -> Result<i32, String> {
@@ -137,8 +191,51 @@ struct Person {
     age: u32,
 }
 
+impl Person {
+    fn new(name: &str, age: u32) -> Person {
+        Person {
+            name: String::from(name),
+            age: age,
+        }
+    }
+
+    fn say_name(&self) -> &Self {
+        println!("I am {}", self.name);
+        self
+    }
+
+    fn say_age(&self) -> &Self {
+        println!("I am {} year(s) old.", self.age);
+        self
+    }
+}
+
 enum Event {
     Quit,
     KeyDown(u8),
     MouseDown { x: i32, y: i32 },
+}
+
+enum Color {
+    Red,
+    Blue,
+    Green,
+}
+
+struct Iter {
+    current: usize,
+    max: usize,
+}
+
+impl Iterator for Iter {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<usize> {
+        self.current += 1;
+        if self.current - 1 < self.max {
+            Some(self.current - 1)
+        } else {
+            None
+        }
+    }
 }
