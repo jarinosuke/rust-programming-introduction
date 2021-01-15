@@ -6,6 +6,8 @@ use std::pin::Pin;
 use std::task::{Context, Poll};
 use async_trait::async_trait;
 
+mod module_a;
+
 fn main() {
     println!("Hello, world!");
 
